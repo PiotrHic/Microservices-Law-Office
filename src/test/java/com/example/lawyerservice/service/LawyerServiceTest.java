@@ -59,9 +59,10 @@ public class LawyerServiceTest {
         //stub the data
         when(repository.addLawyer(returned)).thenReturn(returned);
 
-        Lawyer result = lawyerService.add(returned);
+        Lawyer result = lawyerService.addLawyer(returned);
         Assertions.assertEquals("test1", result.getName());
     }
+
 
     @Disabled
     @Test
@@ -72,7 +73,7 @@ public class LawyerServiceTest {
         when(repository.getLawyerByID(first.getId())).thenReturn(first);
         when(repository.addLawyer(first)).thenReturn(first);
 
-        lawyerService.add(first);
+        lawyerService.addLawyer(first);
 
         Lawyer result = lawyerService.updateLawyer(second.getId(), second);
         Assertions.assertEquals("test2", result.getName());
@@ -85,13 +86,13 @@ public class LawyerServiceTest {
 
         //stub the data
         when(repository.getLawyerByID(returned.getId())).thenReturn(returned);
-        Lawyer result = lawyerService.getLawyer(returned.getId());
+        Lawyer result = lawyerService.getLawyerByID(returned.getId());
         Assertions.assertEquals("test", result.getName());
     }
     @Test
     void getAllLawyers(){
         // when
-        when(repository.findAll()).
+        when(repository.getAllLawyers()).
                 thenReturn(Arrays.asList(first,
                         second));
 
@@ -102,10 +103,18 @@ public class LawyerServiceTest {
 
     @Disabled
     @Test
-    void deleteLawyer(){
+    void deleteLawyerById(){
 
         when(repository.getLawyerByID(returned.getId())).thenReturn(returned);
-        String result = lawyerService.deleteLawyerByID(returned.getId());
+        String result = lawyerService.deleteById(returned.getId());
+        Assertions.assertEquals(result, isNotNull());
+    }
+    @Disabled
+    @Test
+    void deleteAllLawyers(){
+
+        when(repository.getLawyerByID(returned.getId())).thenReturn(returned);
+        String result = lawyerService.deleteAll();
         Assertions.assertEquals(result, isNotNull());
     }
 }
