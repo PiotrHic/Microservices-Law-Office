@@ -1,8 +1,10 @@
 package com.example.lawyerservice.repository;
 
+import com.example.lawyerservice.domain.Lawyer;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class InMemoryRepository {
