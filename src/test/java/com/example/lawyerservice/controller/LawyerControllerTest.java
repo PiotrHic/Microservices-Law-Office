@@ -54,7 +54,8 @@ public class LawyerControllerTest {
         RestAssured.baseURI = "http://localhost:" + port;
     }
 
-    private final String API = "/api/lawyers/";
+
+    private final String API = "/api/lawyer/";
 
     Lawyer first = Lawyer.builder()
             .id(1)
@@ -66,7 +67,6 @@ public class LawyerControllerTest {
             .name("test2")
             .build();
 
-    @Disabled
     @Test
     void shouldSaveOneLawyer() {
 
@@ -74,7 +74,7 @@ public class LawyerControllerTest {
 
         String requestBody = "{\n" +
                 "  \"id\": \"1\",\n" +
-                "  \"name\": \"test1\",\n}";
+                "  \"name\": \"test1\"}";
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -92,7 +92,7 @@ public class LawyerControllerTest {
         Assertions.assertEquals("test1", response.jsonPath().getString("name"));
     }
 
-    @Disabled
+
     @Test
     void updateOneLawyer(){
         repository.deleteAll();
@@ -114,7 +114,7 @@ public class LawyerControllerTest {
 
         String requestBody = "{\n" +
                 "  \"id\": \"" + id + "\",\n" +
-                "  \"name\": \"Put\",\n}";
+                "  \"name\": \"Put\"\n}";
 
         System.out.println(requestBody.toString());
 
@@ -144,7 +144,6 @@ public class LawyerControllerTest {
         Assertions.assertEquals("[Put]", response2.jsonPath().getString("name"));
     }
 
-    @Disabled
     @Test
     void shouldFindOneLawyer(){
         repository.deleteAll();
@@ -181,9 +180,9 @@ public class LawyerControllerTest {
         Assertions.assertEquals("Not Found", response.jsonPath().getString("error"));
     }
 
-    @Disabled
+
     @Test
-    void shouldFindTwoLwayers(){
+    void shouldFindTwoLawyers(){
         repository.deleteAll();
         repository.addLawyer(first);
         repository.addLawyer(second);
@@ -199,7 +198,6 @@ public class LawyerControllerTest {
         Assertions.assertEquals("[test1, test2]", response.jsonPath().getString("name"));
     }
 
-    @Disabled
     @DisplayName("DeleteById Test")
     @Test
     void shouldDeleteOneLawyer(){
@@ -213,7 +211,6 @@ public class LawyerControllerTest {
                 .then()
                 .extract().response();
 
-        System.out.println(response.jsonPath().prettyPrint());
 
         Assertions.assertEquals(200, response.statusCode());
 
@@ -229,7 +226,7 @@ public class LawyerControllerTest {
         Assertions.assertEquals("[]", response2.jsonPath().getString("name"));
     }
 
-    @Disabled
+
     @Test
     void shouldDeleteTwoLawyers(){
         repository.deleteAll();
