@@ -47,7 +47,7 @@ public class InMemoryRepository {
                 .orElseThrow();
         String result = "Lawyer with id: " + lawyerToDelete.getId() + " and with name: "
                 + lawyerToDelete.getName() + "was deleted!";
-        lawyers.remove(id);
+        lawyers.remove(lawyerToDelete);
         return result;
     }
 
