@@ -3,6 +3,9 @@ package com.example.lawyerservice.controller;
 
 import com.example.lawyerservice.domain.Lawyer;
 import com.example.lawyerservice.repository.InMemoryRepository;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +13,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
+
+import static io.restassured.RestAssured.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LawyerControllerTest {
@@ -143,7 +148,7 @@ public class LawyerControllerTest {
     @Test
     void shouldFindOneLawyer(){
         repository.deleteAll();
-        Lawyer saved = repository.save(first);
+        Lawyer saved = repository.addLawyer(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -161,7 +166,7 @@ public class LawyerControllerTest {
     @Test
     void NotFoundLawyer(){
         repository.deleteAll();
-        Lawyer saved = repository.save(first);
+        Lawyer saved = repository.addLawyer(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -199,7 +204,7 @@ public class LawyerControllerTest {
     @Test
     void shouldDeleteOneLawyer(){
         repository.deleteAll();
-        Lawyer saved = repository.save(first);
+        Lawyer saved = repository.addLawyer(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -254,7 +259,7 @@ public class LawyerControllerTest {
         Response response2 = given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get((API)
+                .get(API)
                 .then()
                 .extract().response();
 
@@ -265,7 +270,7 @@ public class LawyerControllerTest {
     @Test
     void UpdateWithBadData(){
         repository.deleteAll();
-        Lawyer saved = repository.save(first);
+        Lawyer saved = repository.addLawyer(first);
 
         String badId = String.valueOf(saved.getId() +1000000);
 
