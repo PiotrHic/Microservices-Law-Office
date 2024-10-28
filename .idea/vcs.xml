@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/API-Gateway" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Eureka-Registry" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Lawyer-Service" vcs="Git" />
   </component>
 </project>
