@@ -4,12 +4,14 @@ import com.example.lawyerservice.domain.Lawyer;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class InMemoryRepository {
 
-    List<Lawyer> lawyers = new ArrayList<>();
+    Set<Lawyer> lawyers = new HashSet<>();
 
     public Lawyer addLawyer(Lawyer lawyer){
         lawyers.add(lawyer);
@@ -36,7 +38,7 @@ public class InMemoryRepository {
     }
 
     public List<Lawyer> getAllLawyers(){
-        return lawyers;
+        return lawyers.stream().toList();
     }
 
     public String deleteById(Integer id){
@@ -52,7 +54,7 @@ public class InMemoryRepository {
     }
 
     public String deleteAll(){
-        lawyers = new ArrayList<>();
+        lawyers = new HashSet<>();
         return "Database is empty!";
     }
 }
