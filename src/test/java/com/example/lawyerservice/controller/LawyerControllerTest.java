@@ -162,7 +162,7 @@ public class LawyerControllerTest {
         Assertions.assertEquals("test1", response.jsonPath().getString("name"));
     }
 
-    @Disabled
+
     @Test
     void NotFoundLawyer(){
         repository.deleteAll();
@@ -264,31 +264,4 @@ public class LawyerControllerTest {
         Assertions.assertEquals(200, response2.statusCode());
     }
 
-    @Disabled
-    @Test
-    void UpdateWithBadData(){
-        repository.deleteAll();
-        Lawyer saved = repository.addLawyer(first);
-
-        String badId = String.valueOf(saved.getId() +1000000);
-
-        String requestBody = "{\n" +
-                "  \"id\": \"" + badId + "\",\n" +
-                "  \"name\": \"Bad data\",\n}";
-
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .and()
-                .body(requestBody)
-                .when()
-                .put("/api/dancerInstructors/" + badId)
-                .then()
-                .extract().response();
-
-        System.out.println(response.jsonPath().prettyPrint());
-
-        Assertions.assertEquals(404, response.statusCode());
-        Assertions.assertEquals("Not Found", response.jsonPath().getString("error"));
-    }
 }
