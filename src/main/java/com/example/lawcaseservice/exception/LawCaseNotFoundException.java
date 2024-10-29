@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class LawCaseNotFoundException extends EntityNotFoundException {
 
     private String message;
+
     public LawCaseNotFoundException(String message) {
         super(message);
         this.message = message;
