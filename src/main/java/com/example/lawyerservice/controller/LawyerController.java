@@ -2,10 +2,13 @@ package com.example.lawyerservice.controller;
 
 
 import com.example.lawyerservice.domain.Lawyer;
+import com.example.lawyerservice.domain.LawyerDTO;
+import com.example.lawyerservice.mapper.LawyerMapper;
 import com.example.lawyerservice.service.LawyerService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,31 +25,34 @@ public class LawyerController {
 
     private final LawyerService lawyerService;
 
+    @Autowired
+    LawyerMapper lawyerMapper;
+
     private final String NUMBER_PATH = "{lawyerId}";
     private final String PATH_VARIABLE_PATH = "lawyerId";
 
     @PostMapping
-    ResponseEntity<Lawyer> createLawyer(@RequestBody Lawyer lawyer){
-        Lawyer added = lawyerService.addLawyer(lawyer);
+    ResponseEntity<LawyerDTO> createLawyer(@RequestBody LawyerDTO lawyerDTO){
+        Lawyer added = lawyerService.addLawyer(lawyerMapper.lawyerDTOToLawyer(lawyerDTO));
         LOGGER.info("Lawyer add: {}", added.toString());
-        return new ResponseEntity<>(lawyerService.addLawyer(added),
+        return new ResponseEntity<>(lawyerMapper.lawyerToLawyerDTO(added),
                 HttpStatus.valueOf(201));
     }
 
     @PutMapping(NUMBER_PATH)
-    ResponseEntity <Lawyer> updateLawyerById(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId
-            , @RequestBody Lawyer lawyer) {
+    ResponseEntity <LawyerDTO> updateLawyerById(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId
+            , @RequestBody  LawyerDTO lawyerDTO) {
         Lawyer updated = lawyerService.updateLawyer(lawyerId,
-                lawyer);
+                lawyerMapper.lawyerDTOToLawyer(lawyerDTO));
         LOGGER.info("Lawyer updated: {}", updated.toString());
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        return new ResponseEntity<>(lawyerMapper.lawyerToLawyerDTO(updated), HttpStatus.OK);
     }
 
     @GetMapping(NUMBER_PATH)
-    ResponseEntity <Lawyer> getLawyerById(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId) {
+    ResponseEntity <LawyerDTO> getLawyerById(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId) {
         Lawyer founded = lawyerService.getLawyerByID(lawyerId);
         LOGGER.info("Lawyer founded: {}", founded.toString());
-        return new ResponseEntity<>(founded, HttpStatus.OK);
+        return new ResponseEntity<>(lawyerMapper.lawyerToLawyerDTO(founded), HttpStatus.OK);
     }
 
     @GetMapping
@@ -61,7 +67,7 @@ public class LawyerController {
     @DeleteMapping(NUMBER_PATH)
     ResponseEntity <String> deleteLawyerById(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId){
         String deleted = lawyerService.deleteById(lawyerId);
-        LOGGER.info("Lawyer founded: {}", deleted.toString());
+        LOGGER.info("Lawyer deleted: {}", deleted.toString());
         return new ResponseEntity<>(deleted, HttpStatus.OK);
     }
 
