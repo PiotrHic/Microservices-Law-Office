@@ -16,7 +16,6 @@ import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-
 public class LawyerServiceTest {
 
     @Mock
