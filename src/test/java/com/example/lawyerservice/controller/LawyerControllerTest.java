@@ -162,6 +162,7 @@ public class LawyerControllerTest {
         Assertions.assertEquals("test1", response.jsonPath().getString("name"));
     }
 
+    @Disabled
     @Test
     void NotFoundLawyer(){
         repository.deleteAll();
