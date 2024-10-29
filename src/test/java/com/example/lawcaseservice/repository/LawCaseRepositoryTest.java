@@ -33,23 +33,23 @@ public class LawCaseRepositoryTest {
 
     @Test
     void createLawCase(){
-        long count = lawCaseRepository.LawCases.size();
+        long count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(0);
 
         lawCaseRepository.addLawCase(first);
 
-        count = lawCaseRepository.LawCases.size();
+        count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(1);
     }
     @Test
     void updateLawCase(){
-        long count = lawCaseRepository.LawCases.size();
+        long count = lawCaseRepository.lawCases.size();
 
         lawCaseRepository.addLawCase(first);
 
-        lawCaseRepository.updateLawCase(first.getId(),new LawCase(1,"updated",null));
+        lawCaseRepository.updateLawCase(first.getId(),new LawCase(1,"updated",null,null,null,null));
 
         assertThat(lawCaseRepository.getLawCaseByID(1).getName()).isEqualTo("updated");
     }
@@ -58,14 +58,14 @@ public class LawCaseRepositoryTest {
 
     @Test
     void getAllLawCases(){
-        long count = lawCaseRepository.LawCases.size();
+        long count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(0);
 
         lawCaseRepository.addLawCase(first);
         lawCaseRepository.addLawCase(second);
 
-        count = lawCaseRepository.LawCases.size();
+        count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(2);
     }
@@ -86,32 +86,37 @@ public class LawCaseRepositoryTest {
     @Test
     void deleteLawCaseById(){
 
+        lawCaseRepository.deleteAll();
+
         lawCaseRepository.addLawCase(first);
 
-        int count = lawCaseRepository.LawCases.size();
+        int count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(1);
 
         lawCaseRepository.deleteById(first.getId());
 
-        count = lawCaseRepository.LawCases.size();
+        count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(0);
     }
 
 
     @Test
-    void deleteAllLawCasesId() {
+    void deleteAllLawCases() {
+
+        lawCaseRepository.deleteAll();
+
         lawCaseRepository.addLawCase(first);
         lawCaseRepository.addLawCase(second);
 
-        int count = lawCaseRepository.LawCases.size();
+        int count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(2);
 
         lawCaseRepository.deleteAll();
 
-        count = lawCaseRepository.LawCases.size();
+        count = lawCaseRepository.lawCases.size();
 
         assertThat(count).isEqualTo(0);
 

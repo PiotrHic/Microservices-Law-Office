@@ -8,13 +8,12 @@ import java.util.List;
 
 public class LawCaseTest {
 
-    LawClient lawClient = LawClient.builder.build();
+//    LawClient lawClient = LawClient.builder.build();
 
 
     Lawyer lawyer = Lawyer.builder()
             .id(1)
             .name("test")
-            .lawCaseList(lawCases)
             .build();
     @Test
     public void setId(){

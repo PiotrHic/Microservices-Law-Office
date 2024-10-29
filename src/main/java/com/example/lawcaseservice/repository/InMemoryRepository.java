@@ -48,12 +48,12 @@ public class InMemoryRepository {
                 .orElseThrow();
         String result = "LawCase with id: " + LawCaseToDelete.getId() + " and with name: "
                 + LawCaseToDelete.getName() + "was deleted!";
-        lawCases.remove(id);
+        lawCases.remove(LawCaseToDelete);
         return result;
     }
 
     public String deleteAll(){
-        lawCases= new HashSet<>();
+        lawCases = new HashSet<>();
         return "Database is empty!";
     }
 }
