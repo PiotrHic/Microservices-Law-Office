@@ -1,5 +1,6 @@
 package com.example.lawcaseservice.controller;
 
+import com.example.lawcaseservice.client.LawClientClient;
 import com.example.lawcaseservice.client.LawyerClient;
 import com.example.lawcaseservice.domain.LawCase;
 import com.example.lawcaseservice.domain.LawCaseDTO;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -27,6 +29,9 @@ public class LawCaseController {
     private final LawCaseService lawCaseService;
 
     private LawyerClient lawyerClient;
+
+    private LawClientClient lawClientClient;
+
 
     @Autowired
     LawCaseMapper lawCaseMapper;
@@ -89,6 +94,20 @@ public class LawCaseController {
                 .stream()
                 .filter(lawCase -> lawCase.getLawyerId().equals(lawyerId)).findFirst().get();
         founded.setLawyer(lawyerClient.findLawyerByLawyerId(lawyerId));
+        return founded;
+    }
+
+    @GetMapping("toBringLawClient/{lawClientId}")
+    public LawCase findLawClientForLawCase(@PathVariable("lawClientId") Integer lawClientId){
+        Set<LawCase> lawCases
+                = lawCaseService.getAllLawCases();
+
+        LawCase founded = lawCases.stream()
+                .filter(lawCase -> lawCase.getLawClientId().equals(lawClientId))
+                .findFirst()
+                .get();
+
+        founded.setLawClient(lawClientClient.findLawClientByLawClientId(lawClientId));
         return founded;
     }
 
