@@ -90,6 +90,13 @@ public class LawClientController {
         return lawClientService.getLawClient(lawClientId);
     };
 
+    @GetMapping("toBringLawCase-withLawyer/" + NUMBER_PATH)
+    public LawClient findLawCaseWithLawyersByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
+        LawClient founded = lawClientService.getLawClient(lawClientId);
+        founded.setLawCaseList(lawCaseClient.findLawCaseWithLawyerByLawClientId(lawClientId));
+        return founded;
+    };
+
     @GetMapping("toBringLawCase/" + NUMBER_PATH)
     public LawClient findLawCaseByLawClientId(@PathVariable(PATH_VARIABLE_PATH) Integer lawClientId){
         LawClient founded = lawClientService.getLawClient(lawClientId);
