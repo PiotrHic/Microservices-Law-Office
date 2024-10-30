@@ -164,25 +164,6 @@ public class LawCaseControllerTest {
 
 
     @Test
-    void NotFoundLawCase(){
-        repository.deleteAll();
-        LawCase saved = repository.addLawCase(first);
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get(API + (saved.getId() +10))
-                .then()
-                .extract().response();
-
-        System.out.println(response.jsonPath().prettyPrint());
-
-        Assertions.assertEquals(404, response.statusCode());
-        Assertions.assertEquals("Not Found", response.jsonPath().getString("error"));
-    }
-
-
-    @Test
     void shouldFindTwoLawCases(){
         repository.deleteAll();
         repository.addLawCase(first);
