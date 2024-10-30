@@ -1,6 +1,7 @@
 package com.example.lawyerservice.controller;
 
 
+import com.example.lawyerservice.client.LawCaseClient;
 import com.example.lawyerservice.domain.LawCase;
 import com.example.lawyerservice.domain.Lawyer;
 import com.example.lawyerservice.domain.LawyerDTO;
@@ -27,6 +28,8 @@ public class LawyerController {
             = LoggerFactory.getLogger(LawyerController.class);
 
     private final LawyerService lawyerService;
+
+    private final LawCaseClient lawCaseClient;
 
     @Autowired
     LawyerMapper lawyerMapper;
@@ -80,6 +83,20 @@ public class LawyerController {
         LOGGER.info("Database is empty");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
+
+    @GetMapping("forLawCases/{lawyerId}")
+    public Lawyer findLawCaseByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
+        Lawyer founded = lawyerService.getLawyerByID(lawyerId);
+        founded.setLawCaseList(lawCaseClient.findLawCaseByLawyerId(lawyerId));
+        return founded;
+    };
+
+    @GetMapping("forLawCases-withLawClient/{lawyerId}")
+    public Lawyer findLawCaseWithLawClientsByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
+        Lawyer founded = lawyerService.getLawyerByID(lawyerId);
+        founded.setLawCaseList(lawCaseClient.findLawCaseWithLawClientsByLawyerId(lawyerId));
+        return founded;
+    };
 
     @GetMapping("toBringLawyer/" + NUMBER_PATH)
     public Lawyer findLawyerByLawyerId(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId){
