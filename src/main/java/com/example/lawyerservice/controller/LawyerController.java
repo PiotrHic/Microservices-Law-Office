@@ -1,6 +1,7 @@
 package com.example.lawyerservice.controller;
 
 
+import com.example.lawyerservice.domain.LawCase;
 import com.example.lawyerservice.domain.Lawyer;
 import com.example.lawyerservice.domain.LawyerDTO;
 import com.example.lawyerservice.mapper.LawyerMapper;
@@ -84,5 +85,7 @@ public class LawyerController {
     public Lawyer findLawyerByLawyerId(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId){
         return lawyerService.getLawyerByID(lawyerId);
     };
+
+
 
 }
