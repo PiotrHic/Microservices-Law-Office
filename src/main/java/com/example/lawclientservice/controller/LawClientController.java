@@ -1,6 +1,7 @@
 package com.example.lawclientservice.controller;
 
 
+import com.example.lawclientservice.client.LawCaseClient;
 import com.example.lawclientservice.domain.LawClient;
 import com.example.lawclientservice.domain.LawClientDTO;
 import com.example.lawclientservice.mapper.LawClientMapper;
@@ -28,6 +29,8 @@ public class LawClientController {
             = LoggerFactory.getLogger(LawClientController.class);
 
     private final LawClientService lawClientService;
+
+    private final LawCaseClient lawCaseClient;
 
     @Autowired
     LawClientMapper lawClientMapper;
@@ -86,5 +89,13 @@ public class LawClientController {
     public LawClient findLawClientByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
         return lawClientService.getLawClient(lawClientId);
     };
+
+    @GetMapping("toBringLawCase/" + NUMBER_PATH)
+    public LawClient findLawCaseByLawClientId(@PathVariable(PATH_VARIABLE_PATH) Integer lawClientId){
+        LawClient founded = lawClientService.getLawClient(lawClientId);
+        founded.setLawCaseList(lawCaseClient.findLawCaseByLawClientId(lawClientId));
+        return founded;
+    };
+
 
 }
