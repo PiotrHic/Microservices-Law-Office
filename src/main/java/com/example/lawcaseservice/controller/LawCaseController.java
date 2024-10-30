@@ -87,6 +87,33 @@ public class LawCaseController {
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 
+    @GetMapping("forLawyer/{lawyerId}")
+    public List<LawCase> findLawCaseByLawyerId(@PathVariable("lawyerId") Integer lawyerId) {
+        Set<LawCase> lawCases
+                = lawCaseService.getAllLawCases();
+        List<LawCase> lawCasesToSend = lawCases
+                .stream()
+                .filter(lawCase -> lawCase.getLawyerId().equals(lawyerId))
+                .toList();
+        return lawCasesToSend;
+    }
+
+    @GetMapping("forLawyer-withLawClient/{lawyerId}")
+    public List<LawCase> findLawCaseWithLawClientsByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
+        Set<LawCase> lawCases
+                = lawCaseService.getAllLawCases();
+        List<LawCase> lawCasesToSend = lawCases
+                .stream()
+                .filter(lawCase -> lawCase.getLawyerId().equals(lawyerId))
+                .toList();
+        lawCasesToSend
+                .forEach(lawCase ->
+                        lawCase.setLawClient
+                                (lawClientClient.findLawClientByLawClientId
+                                        (lawCase.getLawClientId())));
+        return lawCasesToSend;
+    }
+
 
     @GetMapping("toBringLawyer/{lawyerId}")
     public LawCase findLawyerByLawyerId(@PathVariable("lawyerId") Integer lawyerId) {
