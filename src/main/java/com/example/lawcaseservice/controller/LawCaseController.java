@@ -1,9 +1,11 @@
 package com.example.lawcaseservice.controller;
 
+import com.example.lawcaseservice.client.LawyerClient;
 import com.example.lawcaseservice.domain.LawCase;
 import com.example.lawcaseservice.domain.LawCaseDTO;
 import com.example.lawcaseservice.mapper.LawCaseMapper;
 import com.example.lawcaseservice.service.LawCaseService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,8 @@ public class LawCaseController {
             = LoggerFactory.getLogger(LawCaseController.class);
 
     private final LawCaseService lawCaseService;
+
+    private LawyerClient lawyerClient;
 
     @Autowired
     LawCaseMapper lawCaseMapper;
@@ -75,6 +79,17 @@ public class LawCaseController {
         lawCaseService.deleteAllLawCases();
         LOGGER.info("Database is empty");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
+    }
+
+
+    @GetMapping("toBringLawyer/{lawyerId}")
+    public LawCase findLawyerByLawyerId(@PathVariable("lawyerId") Integer lawyerId) {
+        LawCase founded = lawCaseService
+                .getAllLawCases()
+                .stream()
+                .filter(lawCase -> lawCase.getLawyerId().equals(lawyerId)).findFirst().get();
+        founded.setLawyer(lawyerClient.findLawyerByLawyerId(lawyerId));
+        return founded;
     }
 
 }
