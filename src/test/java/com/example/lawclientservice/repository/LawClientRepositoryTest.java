@@ -29,19 +29,19 @@ public class LawClientRepositoryTest {
 
     @Test
     void createLawClient(){
-        long count = lawClientRepository.LawClients.size();
+        long count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(0);
 
         lawClientRepository.addLawClient(first);
 
-        count = lawClientRepository.LawClients.size();
+        count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(1);
     }
     @Test
     void updateLawClient(){
-        long count = lawClientRepository.LawClients.size();
+        long count = lawClientRepository.lawClients.size();
 
         lawClientRepository.addLawClient(first);
 
@@ -61,7 +61,7 @@ public class LawClientRepositoryTest {
         lawClientRepository.addLawClient(first);
         lawClientRepository.addLawClient(second);
 
-        count = lawClientRepository.LawClients.size();
+        count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(2);
     }
@@ -84,13 +84,13 @@ public class LawClientRepositoryTest {
 
         lawClientRepository.addLawClient(first);
 
-        int count = lawClientRepository.LawClients.size();
+        int count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(1);
 
         lawClientRepository.deleteById(first.getId());
 
-        count = lawClientRepository.LawClients.size();
+        count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(0);
     }
@@ -101,13 +101,13 @@ public class LawClientRepositoryTest {
         lawClientRepository.addLawClient(first);
         lawClientRepository.addLawClient(second);
 
-        int count = lawClientRepository.LawClients.size();
+        int count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(2);
 
         lawClientRepository.deleteAll();
 
-        count = lawClientRepository.LawClients.size();
+        count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(0);
 
