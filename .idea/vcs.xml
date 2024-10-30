@@ -5,6 +5,7 @@
     <mapping directory="$PROJECT_DIR$/API-Gateway" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Eureka-Registry" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Lawcase-Service" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Lawclient-Service" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Lawyer-Service" vcs="Git" />
   </component>
 </project>
