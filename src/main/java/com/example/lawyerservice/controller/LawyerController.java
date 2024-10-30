@@ -5,6 +5,7 @@ import com.example.lawyerservice.domain.Lawyer;
 import com.example.lawyerservice.domain.LawyerDTO;
 import com.example.lawyerservice.mapper.LawyerMapper;
 import com.example.lawyerservice.service.LawyerService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -77,5 +79,10 @@ public class LawyerController {
         LOGGER.info("Database is empty");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
+
+    @GetMapping("toBringLawyer/" + NUMBER_PATH)
+    public Lawyer findLawyerByLawyerId(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId){
+        return lawyerService.getLawyerByID(lawyerId);
+    };
 
 }
