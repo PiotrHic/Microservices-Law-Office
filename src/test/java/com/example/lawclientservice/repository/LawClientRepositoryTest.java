@@ -54,7 +54,7 @@ public class LawClientRepositoryTest {
 
     @Test
     void getAllLawClients(){
-        long count = lawClientRepository.LawClients.size();
+        long count = lawClientRepository.lawClients.size();
 
         assertThat(count).isEqualTo(0);
 
