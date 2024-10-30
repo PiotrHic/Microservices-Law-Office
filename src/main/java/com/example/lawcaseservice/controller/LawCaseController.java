@@ -4,6 +4,7 @@ import com.example.lawcaseservice.client.LawClientClient;
 import com.example.lawcaseservice.client.LawyerClient;
 import com.example.lawcaseservice.domain.LawCase;
 import com.example.lawcaseservice.domain.LawCaseDTO;
+import com.example.lawcaseservice.domain.LawClient;
 import com.example.lawcaseservice.mapper.LawCaseMapper;
 import com.example.lawcaseservice.service.LawCaseService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -107,6 +108,18 @@ public class LawCaseController {
                 .toList();
         return lawCasesToSend;
     }
+
+    @GetMapping("forLawClient-withLawyer/{lawClientId}")
+    public List<LawCase> findLawCaseWithLawyerByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
+        List<LawCase> lawCases = findLawCaseByLawClientId(lawClientId);
+        lawCases
+                .forEach(lawCase -> lawCase.setLawyer
+                        (lawyerClient.findLawyerByLawyerId
+                                (lawCase.getLawyerId())));
+
+        return lawCases;
+    }
+
 
     @GetMapping("toBringLawClient/{lawClientId}")
     public LawCase findLawClientForLawCase(@PathVariable("lawClientId") Integer lawClientId){
