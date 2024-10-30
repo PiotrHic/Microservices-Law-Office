@@ -97,6 +97,17 @@ public class LawCaseController {
         return founded;
     }
 
+    @GetMapping("forLawClient/{lawClientId}")
+    public List<LawCase> findLawCaseByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
+        Set<LawCase> lawCases
+                = lawCaseService.getAllLawCases();
+        List<LawCase> lawCasesToSend = lawCases
+                .stream()
+                .filter(lawCase -> lawCase.getLawClientId().equals(lawClientId))
+                .toList();
+        return lawCasesToSend;
+    }
+
     @GetMapping("toBringLawClient/{lawClientId}")
     public LawCase findLawClientForLawCase(@PathVariable("lawClientId") Integer lawClientId){
         Set<LawCase> lawCases
