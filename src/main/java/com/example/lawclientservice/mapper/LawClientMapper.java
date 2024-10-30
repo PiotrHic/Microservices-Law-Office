@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LawClientMapper {
 
-    public LawClientDTO LawClientToLawClientDTO(LawClient lawClient){
+    public LawClientDTO lawClientToLawClientDTO(LawClient lawClient){
         return LawClientDTO.builder()
                 .id(lawClient.getId())
                 .name(lawClient.getName())
@@ -17,7 +17,7 @@ public class LawClientMapper {
                 .build();
     }
 
-    public LawClient LawClientDTOToLawClient(LawClientDTO lawClientDTO){
+    public LawClient lawClientDTOToLawClient(LawClientDTO lawClientDTO){
         return LawClient.builder()
                 .id(lawClientDTO.getId())
                 .name(lawClientDTO.getName())

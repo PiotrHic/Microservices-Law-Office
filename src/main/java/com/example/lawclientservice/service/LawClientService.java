@@ -5,6 +5,7 @@ package com.example.lawclientservice.service;
 import com.example.lawclientservice.domain.LawClient;
 
 import java.util.List;
+import java.util.Set;
 
 public interface LawClientService {
     LawClient createLawClient(LawClient lawClient);
