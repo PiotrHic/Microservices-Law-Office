@@ -17,7 +17,7 @@ public class LawyerServiceImpl implements LawyerService {
 
 
     private static final Logger LOGGER
-            = LoggerFactory.getLogger(LawyerController.class);
+            = LoggerFactory.getLogger(LawyerServiceImpl.class);
 
     private final InMemoryRepository repository;
     @Override
