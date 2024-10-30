@@ -60,12 +60,12 @@ public class LawClientControllerTest {
 
     LawClient first = LawClient.builder()
             .id(1)
-            .name("test1")
+            .name("test")
             .build();
 
     LawClient second = LawClient.builder()
             .id(2)
-            .name("test2")
+            .name("test")
             .build();
 
     @Test
@@ -75,7 +75,7 @@ public class LawClientControllerTest {
 
         String requestBody = "{\n" +
                 "  \"id\": \"1\",\n" +
-                "  \"name\": \"test1\"}";
+                "  \"name\": \"test\"}";
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -90,7 +90,7 @@ public class LawClientControllerTest {
 
         Assertions.assertEquals(201, response.statusCode());
         Assertions.assertEquals("1", response.jsonPath().getString("id"));
-        Assertions.assertEquals("test1", response.jsonPath().getString("name"));
+        Assertions.assertEquals("test", response.jsonPath().getString("name"));
     }
 
 
@@ -108,7 +108,7 @@ public class LawClientControllerTest {
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("[test1]", response.jsonPath().getString("name"));
+        Assertions.assertEquals("[test]", response.jsonPath().getString("name"));
 
 
         String id = first.getId().toString();
@@ -160,7 +160,7 @@ public class LawClientControllerTest {
         System.out.println(response.jsonPath().prettyPrint());
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("test1", response.jsonPath().getString("name"));
+        Assertions.assertEquals("test", response.jsonPath().getString("name"));
     }
 
 
@@ -187,7 +187,7 @@ public class LawClientControllerTest {
     void shouldFindTwoLawClients(){
         repository.deleteAll();
         repository.addLawClient(first);
-        repository.addLawClient(first);
+        repository.addLawClient(second);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -197,7 +197,7 @@ public class LawClientControllerTest {
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("[test1, test1]", response.jsonPath().getString("name"));
+        Assertions.assertEquals("[test, test]", response.jsonPath().getString("name"));
     }
 
     @DisplayName("DeleteById Test")
