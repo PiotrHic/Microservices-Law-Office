@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LawCaseMapper {
 
-    public LawCaseDTO LawCaseToLawCaseDTO(LawCase LawCase){
+    public LawCaseDTO lawCaseToLawCaseDTO(LawCase LawCase){
         return LawCaseDTO.builder()
                 .id(LawCase.getId())
                 .name(LawCase.getName())
@@ -18,7 +18,7 @@ public class LawCaseMapper {
                 .build();
     }
 
-    public LawCase LawCaseDTOToLawCase(LawCaseDTO lawCaseDTO){
+    public LawCase lawCaseDTOToLawCase(LawCaseDTO lawCaseDTO){
         return LawCase.builder()
                 .id(lawCaseDTO.getId())
                 .name(lawCaseDTO.getName())
