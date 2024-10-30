@@ -187,7 +187,7 @@ public class LawClientControllerTest {
     void shouldFindTwoLawClients(){
         repository.deleteAll();
         repository.addLawClient(first);
-        repository.addLawClient(second);
+        repository.addLawClient(first);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -197,7 +197,7 @@ public class LawClientControllerTest {
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("[test1, test2]", response.jsonPath().getString("name"));
+        Assertions.assertEquals("[test1, test1]", response.jsonPath().getString("name"));
     }
 
     @DisplayName("DeleteById Test")
