@@ -1,7 +1,7 @@
 package com.example.lawclientservice.service;
 
 
-import com.example.lawclientservice.domain.LawClient
+import com.example.lawclientservice.domain.LawClient;
 import com.example.lawclientservice.repository.InMemoryRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +59,7 @@ public class LawClientServiceTest {
         //stub the data
         when(repository.addLawClient(returned)).thenReturn(returned);
 
-        LawClient result = lawClientService.addLawClient(returned);
+        LawClient result = lawClientService.createLawClient(returned);
         Assertions.assertEquals("test1", result.getName());
     }
 
@@ -73,7 +73,7 @@ public class LawClientServiceTest {
         when(repository.getLawClientByID(first.getId())).thenReturn(first);
         when(repository.addLawClient(first)).thenReturn(first);
 
-        lawClientService.addLawClient(first);
+        lawClientService.createLawClient(first);
 
         LawClient result = lawClientService.updateLawClient(second.getId(), second);
         Assertions.assertEquals("test2", result.getName());
@@ -86,7 +86,7 @@ public class LawClientServiceTest {
 
         //stub the data
         when(repository.getLawClientByID(returned.getId())).thenReturn(returned);
-        LawClient result = lawClientService.getLawClientByID(returned.getId());
+        LawClient result = lawClientService.getLawClient(returned.getId());
         Assertions.assertEquals("test", result.getName());
     }
     @Test
@@ -106,7 +106,7 @@ public class LawClientServiceTest {
     void deleteLawClientById(){
 
         when(repository.getLawClientByID(returned.getId())).thenReturn(returned);
-        String result = lawClientService.deleteById(returned.getId());
+        String result = lawClientService.deleteLawClientByID(returned.getId());
         Assertions.assertEquals(result, isNotNull());
     }
     @Disabled
@@ -114,7 +114,7 @@ public class LawClientServiceTest {
     void deleteAllLawClients(){
 
         when(repository.getLawClientByID(returned.getId())).thenReturn(returned);
-        String result = lawClientService.deleteAll();
+        String result = lawClientService.deleteAllLawClients();
         Assertions.assertEquals(result, isNotNull());
     }
 }
