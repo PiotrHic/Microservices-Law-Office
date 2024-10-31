@@ -84,7 +84,13 @@ public class LawyerController {
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 
+    private static final String CB = "lawyer";
+
+    public String testFallBack(Exception e) {
+        return "To jest test fallback";
+    }
     @GetMapping("forLawCases/{lawyerId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public Lawyer findLawCaseByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
         Lawyer founded = lawyerService.getLawyerByID(lawyerId);
         founded.setLawCaseList(lawCaseClient.findLawCaseByLawyerId(lawyerId));
@@ -92,6 +98,7 @@ public class LawyerController {
     };
 
     @GetMapping("forLawCases-withLawClient/{lawyerId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public Lawyer findLawCaseWithLawClientsByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
         Lawyer founded = lawyerService.getLawyerByID(lawyerId);
         founded.setLawCaseList(lawCaseClient.findLawCaseWithLawClientsByLawyerId(lawyerId));
@@ -99,6 +106,7 @@ public class LawyerController {
     };
 
     @GetMapping("toBringLawyer/" + NUMBER_PATH)
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public Lawyer findLawyerByLawyerId(@PathVariable(PATH_VARIABLE_PATH) Integer lawyerId){
         return lawyerService.getLawyerByID(lawyerId);
     };
