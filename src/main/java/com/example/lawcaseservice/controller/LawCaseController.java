@@ -87,7 +87,16 @@ public class LawCaseController {
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 
+    private static final String CB = "lawcase";
+
+    public String testFallBack(Exception e) {
+        return "To jest test fallback";
+    }
+
+
+
     @GetMapping("forLawyer/{lawyerId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public List<LawCase> findLawCaseByLawyerId(@PathVariable("lawyerId") Integer lawyerId) {
         Set<LawCase> lawCases
                 = lawCaseService.getAllLawCases();
@@ -99,6 +108,7 @@ public class LawCaseController {
     }
 
     @GetMapping("forLawyer-withLawClient/{lawyerId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public List<LawCase> findLawCaseWithLawClientsByLawyerId(@PathVariable("lawyerId") Integer lawyerId){
         Set<LawCase> lawCases
                 = lawCaseService.getAllLawCases();
@@ -116,6 +126,7 @@ public class LawCaseController {
 
 
     @GetMapping("toBringLawyer/{lawyerId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public LawCase findLawyerByLawyerId(@PathVariable("lawyerId") Integer lawyerId) {
         LawCase founded = lawCaseService
                 .getAllLawCases()
@@ -126,6 +137,7 @@ public class LawCaseController {
     }
 
     @GetMapping("forLawClient/{lawClientId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public List<LawCase> findLawCaseByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
         Set<LawCase> lawCases
                 = lawCaseService.getAllLawCases();
@@ -137,18 +149,19 @@ public class LawCaseController {
     }
 
     @GetMapping("forLawClient-withLawyer/{lawClientId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public List<LawCase> findLawCaseWithLawyerByLawClientId(@PathVariable("lawClientId") Integer lawClientId){
         List<LawCase> lawCases = findLawCaseByLawClientId(lawClientId);
         lawCases
                 .forEach(lawCase -> lawCase.setLawyer
                         (lawyerClient.findLawyerByLawyerId
                                 (lawCase.getLawyerId())));
-
         return lawCases;
     }
 
 
     @GetMapping("toBringLawClient/{lawClientId}")
+    @CircuitBreaker(name = CB, fallbackMethod = "testFallBack")
     public LawCase findLawClientForLawCase(@PathVariable("lawClientId") Integer lawClientId){
         Set<LawCase> lawCases
                 = lawCaseService.getAllLawCases();
