@@ -13,6 +13,7 @@ public class LawCase {
 
     private Integer id;
     private String name;
-    private Integer lawClientId;
+    private Integer lawyerId;
+    private Integer LawClientId;
     private LawClient lawClient;
 }
