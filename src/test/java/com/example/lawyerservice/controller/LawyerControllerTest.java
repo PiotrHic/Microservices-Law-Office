@@ -186,6 +186,7 @@ public class LawyerControllerTest {
     void shouldFindTwoLawyers(){
         repository.deleteAll();
         repository.addLawyer(first);
+        second.setName("test1");
         repository.addLawyer(second);
 
         Response response = given()
@@ -196,7 +197,7 @@ public class LawyerControllerTest {
                 .extract().response();
 
         Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("[test1, test2]", response.jsonPath().getString("name"));
+        Assertions.assertEquals("[test1, test1]", response.jsonPath().getString("name"));
     }
 
     @DisplayName("DeleteById Test")
