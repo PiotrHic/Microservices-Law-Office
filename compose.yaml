@@ -1,4 +1,6 @@
 services:
+
+  ##Zipkin
   zipkin:
     image: 'openzipkin/zipkin:latest'
     ports:
