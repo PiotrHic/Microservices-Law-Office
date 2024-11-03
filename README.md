@@ -10,7 +10,7 @@ Hi! This is a Microservice Aplication to show my skills.
 
 
 ## Short Description
-I create a JPA Spring Boot Application, to use in real project certain knownledge:
+I create a JPA Spring Boot Application, to use in real project certain knowledge:
 
 -Spring Boot Architecture (Layers)
 
