@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class LawyerServiceImpl implements LawyerService {
 
-
     private static final Logger LOGGER
             = LoggerFactory.getLogger(LawyerServiceImpl.class);
 
